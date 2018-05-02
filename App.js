@@ -16,13 +16,14 @@ export default class App extends Component {
     listData: []
   }
 
+  keyword = ''
   imageNotFound = 'http://www.wellesleysocietyofartists.org/wp-content/uploads/2015/11/image-not-found.jpg'
   
   search(keyword = '') {
     Axios.get(
       `https://developers.zomato.com/api/v2.1/search?q=${keyword.replace(' ', '%20')}`,
       { 
-        headers: { 'user-key': '5b7f26beacbfaf4935805b66fa95f235' }
+        headers: { 'user-key': 'f3df5a169d5d7e6b500306dd3d582d8f' }
       }
     )
     .then(res => {
@@ -30,8 +31,6 @@ export default class App extends Component {
     })
     console.log(this.state.listData)
   }
-
-  componentWillMount() { this.search() }
 
   render() {
     return (
@@ -43,10 +42,11 @@ export default class App extends Component {
               style={{ marginRight: 10, height: 40, flex: 1, backgroundColor: 'white' }} 
               underlineColorAndroid='transparent' 
               placeholder='Cari menu makanan...'
-              onChangeText={(input) => this.search(input)}
+              onChangeText={(input) => this.keyword = input}
             />
           </View>
         </View>
+        <Button color='#D35047' onPress={() => this.search(this.keyword)} title='LIHAT DAFTAR RESTO'/>
         <ScrollView>
           <View style={{ marginBottom: 20 }}></View>
           { 
